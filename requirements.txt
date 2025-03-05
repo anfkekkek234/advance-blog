@@ -1,3 +1,28 @@
 django >3.2,<3.3
-python-decouple
+coreapi
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+
+drf-yasg
+Jinja2
+jsonschema
+Markdown
 pillow
+PyJWT
+python-decouple
+pytz
+PyYAML
+requests
+sqlparse
+swagger-spec-validator
+typing_extensions
+uritemplate
+urllib3
+zipp
+
+# refactoring and tests
+black
+flake8
+pytest
+pytest-django
