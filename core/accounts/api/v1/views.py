@@ -195,4 +195,3 @@ class ActivationResendApiView(generics.GenericAPIView):
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
-    
