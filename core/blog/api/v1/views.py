@@ -1,25 +1,14 @@
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
-)
-from rest_framework.response import Response
-from .serializers import PostSerializer, CategorySerializer
-from ...models import Post, Category
-from rest_framework import status, viewsets
-from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.generics import (
-    GenericAPIView,
-    ListAPIView,
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
-from rest_framework import mixins
-from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework import viewsets
+from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from ...models import Category, Post
 from .paginations import DefaultPagination
+from .permissions import IsOwnerOrReadOnly
+from .serializers import CategorySerializer, PostSerializer
 
 # data = {
 #     "id":1,

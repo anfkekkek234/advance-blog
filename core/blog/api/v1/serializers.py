@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from ...models import Post, Category
+
 from accounts.models import Profile
+
+from ...models import Category, Post
 
 
 # class PostSerializer(serializers.Serializer):
@@ -16,12 +18,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     # content = serializers.ReadOnlyField()
     snippet = serializers.ReadOnlyField(source="get-snippet")
-    relative_url = serializers.URLField(
-        source="get_absolute_api_url", read_only=True
-    )
-    absolute_url = serializers.SerializerMethodField(
-        method_name="get_abs_url"
-    )
+    relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
+    absolute_url = serializers.SerializerMethodField(method_name="get_abs_url")
     # category = serializers.SlugRelatedField(many=False,slug_field='name',queryset=Category.objects.all())
 
     class Meta:
