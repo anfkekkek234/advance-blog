@@ -17,12 +17,17 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from ...models import Profile
 from ..utils import EmailThread
-from .serializers import (ActivationResendSerializer, ChangePasswordSerializer,
-                          CustomAuthTokenSerializer,
-                          CustomTokenObtainPairSerializer, ProfileSerializer,
-                          RegisterationSerializer)
+from .serializers import (
+    ActivationResendSerializer,
+    ChangePasswordSerializer,
+    CustomAuthTokenSerializer,
+    CustomTokenObtainPairSerializer,
+    ProfileSerializer,
+    RegisterationSerializer,
+)
 
 User = get_user_model()
+
 
 class RegistrationApiView(generics.GenericAPIView):
     serializer_class = RegisterationSerializer
@@ -53,6 +58,7 @@ class RegistrationApiView(generics.GenericAPIView):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
 
+
 class CustomObtainAuthToken(ObtainAuthToken):
     serializer_class = CustomAuthTokenSerializer
 
@@ -65,6 +71,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key, "user_id": user.pk, "email": user.email})
 
+
 class CustomDiscardAuthToken(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -72,8 +79,10 @@ class CustomDiscardAuthToken(APIView):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
 
 class ChangePasswordApiView(generics.GenericAPIView):
     model = User
@@ -100,6 +109,7 @@ class ChangePasswordApiView(generics.GenericAPIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ProfileApiView(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
@@ -107,6 +117,7 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return get_object_or_404(self.get_queryset(), user=self.request.user)
+
 
 class TestEmailSend(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
@@ -134,6 +145,7 @@ class TestEmailSend(generics.GenericAPIView):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
 
+
 class ActivationApiView(APIView):
     def get(self, request, token, *args, **kwargs):
         try:
@@ -159,6 +171,7 @@ class ActivationApiView(APIView):
             {"details": "your account have been verified and activated successfully"}
         )
 
+
 class ActivationResendApiView(generics.GenericAPIView):
     serializer_class = ActivationResendSerializer
 
@@ -182,16 +195,3 @@ class ActivationResendApiView(generics.GenericAPIView):
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
-
-
-
-
-
-
-
-
-
-
-
-
-
