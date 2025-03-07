@@ -28,3 +28,4 @@ pytest
 pytest-django
 autopep8
 djoser
+Faker

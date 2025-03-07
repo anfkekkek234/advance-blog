@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "accounts",
+    "accounts.apps.AccountsConfig",
     "blog",
     "rest_framework",
     "rest_framework.authtoken",
@@ -150,6 +150,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # user manager config
 AUTH_USER_MODEL = "accounts.User"
+
+
 
 # restframework settingss
 
